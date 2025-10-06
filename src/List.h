@@ -1,5 +1,5 @@
-#ifndef SSLB_DATA
-#define SSLB_DATA
+#ifndef SSLB_LIST
+#define SSLB_LIST
 
 typedef struct {
     char* string;
@@ -24,8 +24,16 @@ typedef struct {
 
 void sslb_data_string_list_add(StringList*, char*);
 
+void sslb_data_string_list_bulk_add(StringList*, int, ...);
+
 char* sslb_data_string_list_pop(StringList*);
 
 StringList* sslb_data_string_list_init();
+
+char* sslb_data_string_list_last(StringList*);
+
+char* sslb_data_string_list_by_position(StringList*, int);
+
+void sslb_data_string_list_view(StringList*);
 
 #endif

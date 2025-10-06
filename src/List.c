@@ -1,6 +1,8 @@
 #include "List.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
 
 void sslb_data_string_list_add(StringList* list, char* string){
     StringListItem* item = malloc(sizeof(StringListItem));
@@ -25,4 +27,47 @@ StringList* sslb_data_string_list_init(){
     StringList* list = malloc(sizeof(StringList));
     list->size = 0;
     list->currItem = (StringListItem*)list;
+};
+
+char* sslb_data_string_list_last(StringList* list){
+    return list->currItem->string;
+};
+
+char* sslb_data_string_list_by_position(StringList* list, int position){
+    if (position < list->size){
+        StringListItem* item = list->currItem;
+
+        for (int i = list->size; i > position+1; i--) {
+            item = item->prevItem;
+        }
+
+        return item->string;
+    } else {
+        fprintf(stderr, "Error: Position %d doesn't exist in list\n", position);
+    }
+};
+
+
+void sslb_data_string_list_view(StringList* list){
+    char result[1000] = "[ ";
+
+    for(int i = 0; i < list->size; i++){
+        char string[100];
+        if( i != list->size - 1){
+            sprintf(string, "%d:\"%s\", ", i, sslb_data_string_list_by_position(list, i));
+        } else {
+            sprintf(string, "%d:\"%s\" ]\n", i, sslb_data_string_list_by_position(list, i));
+        }
+        strcat(result, string);
+    }
+    printf("%s", result);
+};
+
+void sslb_data_string_list_bulk_add(StringList* list, int n, ...){
+    va_list ap;
+	va_start(ap, n);
+
+    for(int i = 0; i < n; i++){
+        sslb_data_string_list_add(list, va_arg(ap, char*));
+    }
 };
