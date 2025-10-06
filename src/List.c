@@ -93,11 +93,7 @@ void sslb_data_string_list_remove_by_position(StringList* list, int position){
 };
 
 void sslb_data_string_list_remove_by_data(StringList* list, char* data){
-    for (int pos = 0; pos < list->size; pos++ ){
-        if (sslb_data_string_list_by_position(list, pos) == data){
-            sslb_data_string_list_remove_by_position(list, pos);
-        }
-    }
+    sslb_data_string_list_remove_by_position(list, sslb_data_string_list_find(list, data));
 };
 
 
