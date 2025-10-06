@@ -11,7 +11,6 @@ void sslb_data_string_list_add(StringList* list, char* string){
 
 char* sslb_data_string_list_pop(StringList* list){
     StringListItem* item = list->currItem;
-    // free(list->currItem);
     list->currItem = item->prevItem;
     return item->string;
 };
