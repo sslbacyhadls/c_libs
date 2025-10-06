@@ -11,6 +11,17 @@ typedef struct {
     int size;
 } StringList;
 
+// typedef struct {
+//     int string;
+//     void* prevItem;
+// } IntListItem;
+
+// typedef struct {
+//     IntListItem* currItem;
+//     int size;
+// } IntList;
+
+
 void sslb_data_string_list_add(StringList*, char*);
 
 char* sslb_data_string_list_pop(StringList*);
