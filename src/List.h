@@ -38,4 +38,8 @@ void sslb_data_string_list_view(StringList*);
 
 void sslb_data_string_list_remove_by_position(StringList*, int);
 
+void sslb_data_string_list_remove_by_data(StringList*, char*);
+
+int sslb_data_string_list_find(StringList*, char*);
+
 #endif

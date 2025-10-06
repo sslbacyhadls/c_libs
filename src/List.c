@@ -73,15 +73,38 @@ void sslb_data_string_list_bulk_add(StringList* list, int n, ...){
 };
 
 void sslb_data_string_list_remove_by_position(StringList* list, int position){
-    if (position < list->size){
+    if (position < list->size-1 ){
         StringListItem* item = list->currItem;
-
-        for (int i = list->size; i > position; i--) {
+        StringListItem* previousItem;
+        
+        for (int i = list->size; i > position + 2; i--) {
             item = item->prevItem;
+            previousItem = item->prevItem;
         }
 
-        item->prevItem = item->prevItem->pervItem
+        item->prevItem = ((StringListItem*)item->prevItem)->prevItem;
+        list->size--;
+
+    } else if(position == list->size-1){
+        sslb_data_string_list_pop(list);
     } else {
         fprintf(stderr, "Error: Position %d doesn't exist in list\n", position);
     }
 };
+
+void sslb_data_string_list_remove_by_data(StringList* list, char* data){
+    for (int pos = 0; pos < list->size; pos++ ){
+        if (sslb_data_string_list_by_position(list, pos) == data){
+            sslb_data_string_list_remove_by_position(list, pos);
+        }
+    }
+};
+
+
+int sslb_data_string_list_find(StringList* list, char* data){
+    for (int pos = 0; pos < list->size; pos++ ){
+        if (sslb_data_string_list_by_position(list, pos) == data){
+            return pos;
+        }
+    }
+}
