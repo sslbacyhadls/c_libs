@@ -71,3 +71,17 @@ void sslb_data_string_list_bulk_add(StringList* list, int n, ...){
         sslb_data_string_list_add(list, va_arg(ap, char*));
     }
 };
+
+void sslb_data_string_list_remove_by_position(StringList* list, int position){
+    if (position < list->size){
+        StringListItem* item = list->currItem;
+
+        for (int i = list->size; i > position; i--) {
+            item = item->prevItem;
+        }
+
+        item->prevItem = item->prevItem->pervItem
+    } else {
+        fprintf(stderr, "Error: Position %d doesn't exist in list\n", position);
+    }
+};

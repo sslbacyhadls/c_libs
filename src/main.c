@@ -14,7 +14,7 @@ int main(){
 	sslb_data_string_list_view(list);
 	sslb_logging_log_line(sslb_data_string_list_pop(list));
 
-	sslb_data_string_list_add(list, "123");
+	sslb_data_string_list_bulk_add(list, 3, "2121", "32312", "123");
 	sslb_logging_log_line(sslb_data_string_list_last(list));
 	sslb_logging_log_line(sslb_data_string_list_by_position(list, 0));
 	sslb_data_string_list_view(list);
