@@ -14,4 +14,5 @@ void sslb_logging_init_format(char* format);
 
 void sslb_logging_log_line(char * text);
 
+void sslb_logging_close();
 #endif
