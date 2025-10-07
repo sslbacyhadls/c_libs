@@ -1,6 +1,8 @@
 #ifndef SSLB_LIST
 #define SSLB_LIST
 
+#include <stdbool.h>
+
 typedef struct {
     char* string;
     void* prevItem;
@@ -11,35 +13,26 @@ typedef struct {
     int size;
 } StringList;
 
-// typedef struct {
-//     int string;
-//     void* prevItem;
-// } IntListItem;
+void sslb_list_string_add(StringList*, char*);
 
-// typedef struct {
-//     IntListItem* currItem;
-//     int size;
-// } IntList;
+void sslb_list_string_bulk_add(StringList*, int, ...);
 
+char* sslb_list_string_pop(StringList*);
 
-void sslb_data_string_list_add(StringList*, char*);
+StringList* sslb_list_string_init();
 
-void sslb_data_string_list_bulk_add(StringList*, int, ...);
+char* sslb_list_string_last(StringList*);
 
-char* sslb_data_string_list_pop(StringList*);
+char* sslb_list_string_by_position(StringList*, int);
 
-StringList* sslb_data_string_list_init();
+void sslb_list_string_view(StringList*);
 
-char* sslb_data_string_list_last(StringList*);
+void sslb_list_string_remove_by_position(StringList*, int);
 
-char* sslb_data_string_list_by_position(StringList*, int);
+void sslb_list_string_remove_by_data(StringList*, char*);
 
-void sslb_data_string_list_view(StringList*);
+int sslb_list_string_find(StringList*, char*);
 
-void sslb_data_string_list_remove_by_position(StringList*, int);
-
-void sslb_data_string_list_remove_by_data(StringList*, char*);
-
-int sslb_data_string_list_find(StringList*, char*);
+bool sslb_list_string_is_equals(StringList*, StringList*);
 
 #endif
