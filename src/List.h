@@ -4,12 +4,19 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
+bool sslb_list_equals(void* first, void* second){
+    if(*(char*)first == *(char*)second){
+        return true;
+    }
+    return false;
+}
+
 #define sslb_list_create(type)                                              \
     typedef struct { type data; void* prevItem; } ListItem_##type;          \
     typedef struct { ListItem_##type* currItem; int size; } List_##type;    \ 
                                                                             \
     List_##type* sslb_list_init_##type(){                                   \
-        List_##type* list = malloc(sizeof(List_##type));                    \
+        List_##type* list = (List_##type*)malloc(sizeof(List_##type));                    \
         list->size = 0;                                                     \
         list->currItem = (ListItem_##type*)list;                            \
     };                                                                      \
@@ -86,7 +93,8 @@
                                                                             \
     int sslb_list_find_##type(List_##type* list, type data){                \
         for (int pos = 0; pos < list->size; pos++ ){                        \
-            if (sslb_list_by_position_##type(list, pos) == data){           \
+            type pos_data = sslb_list_by_position_##type(list, pos);        \
+            if (sslb_list_equals(&pos_data, &data)){                        \
                 return pos;                                                 \
             }                                                               \
         }                                                                   \
@@ -101,7 +109,9 @@
         }                                                                   \
                                                                             \
         for(int i = 0; i < list1->size; i++){                               \
-            if(sslb_list_by_position_##type(list1, i) != sslb_list_by_position_##type(list2, i)){\
+            type first = sslb_list_by_position_##type(list1, i);            \
+            type second = sslb_list_by_position_##type(list2, i);           \
+            if(!sslb_list_equals(&first, &second)){                         \
                 return false;                                               \
             }                                                               \
         }                                                                   \
